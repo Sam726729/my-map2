@@ -1,0 +1,151 @@
+/* ==========================================
+   1. RESET E ESTRUTURA GERAL
+   ========================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; font-family: Arial, sans-serif; overflow: hidden; }
+#map { width: 100%; height: 100vh; z-index: 1; }
+
+/* ==========================================
+   2. POPUP DO MAPA E CÁPSULAS (CHIPS)
+   ========================================== */
+.popup-conteudo { font-size: 13px; line-height: 1.5; color: #333; }
+.popup-titulo { font-size: 16px; color: #1e293b; margin-bottom: 2px; }
+.popup-subtitulo { font-size: 13px; color: #64748b; margin-bottom: 12px; }
+
+.capsula-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 5px;
+}
+
+.capsula {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.capsula:hover {
+    background: #e2e8f0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-color: #94a3b8;
+}
+
+/* ==========================================
+   3. ANIMAÇÕES DO PINO (DROP, BOUNCE E RIPPLE)
+   ========================================== */
+.pin-wrapper { position: relative; width: 36px; height: 36px; }
+
+/* Ondulação na base do pino */
+.ripple {
+    position: absolute; bottom: -8px; left: 50%;
+    transform: translateX(-50%);
+    width: 20px; height: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    animation: rippleEffect 2s infinite ease-out;
+    z-index: -1;
+}
+
+@keyframes rippleEffect {
+    0% { transform: translateX(-50%) scale(0.5); opacity: 1; }
+    100% { transform: translateX(-50%) scale(2.5); opacity: 0; }
+}
+
+/* Pino caindo com mola */
+.pin-animado {
+    transform-origin: bottom center;
+    animation: dropBounce 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.pin-animado:hover {
+    transform: translateY(-4px) scale(1.1);
+    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.3));
+}
+
+@keyframes dropBounce {
+    0% { transform: translateY(-150px) scale(1); opacity: 0; }
+    50% { transform: translateY(10px) scale(0.9); opacity: 1; }
+    70% { transform: translateY(-5px) scale(1.05); }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* ==========================================
+   4. PAINEL LATERAL (SIDE DRAWER)
+   ========================================== */
+.overlay-painel {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5); z-index: 1000;
+    opacity: 0; visibility: hidden; transition: 0.3s;
+}
+
+.overlay-painel.aberto { opacity: 1; visibility: visible; }
+
+.painel-lateral {
+    position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100%;
+    background: #ffffff; z-index: 1001; box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow-y: auto; padding: 30px 25px;
+}
+
+.painel-lateral.aberto { right: 0; }
+
+.fechar-painel {
+    position: absolute; top: 15px; right: 20px;
+    background: none; border: none; font-size: 32px;
+    color: #94a3b8; cursor: pointer; transition: color 0.2s;
+}
+.fechar-painel:hover { color: #f97316; }
+
+.conteudo-painel h2 { font-size: 20px; color: #1e293b; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.conteudo-painel hr { border: none; border-bottom: 2px solid #f1f5f9; margin-bottom: 20px; }
+.conteudo-painel .texto-painel { font-size: 15px; line-height: 1.7; color: #475569; }
+.conteudo-painel ul { padding-left: 20px; margin-top: 10px; }
+.conteudo-painel li { margin-bottom: 8px; }
+
+/* ==========================================
+   5. GALERIA NO PAINEL E MODAL
+   ========================================== */
+.galeria-container { position: relative; display: flex; align-items: center; margin-top: 15px; }
+.galeria-slides {
+    display: flex; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; gap: 8px;
+    width: 100%; border-radius: 8px; scrollbar-width: none;
+}
+.galeria-slides::-webkit-scrollbar { display: none; }
+.galeria-slides img {
+    flex: 0 0 100%; scroll-snap-align: start; width: 100%; height: 220px;
+    object-fit: cover; border-radius: 8px; cursor: pointer; transition: 0.2s;
+}
+.galeria-slides img:hover { opacity: 0.9; transform: scale(0.98); }
+
+.btn-galeria {
+    position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white;
+    border: none; font-size: 16px; padding: 6px 10px; cursor: pointer; border-radius: 50%; z-index: 10;
+}
+.btn-galeria.prev { left: 5px; } .btn-galeria.next { right: 5px; }
+
+.modal-imagem {
+    display: none; position: fixed; z-index: 99999; left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.95); justify-content: center; align-items: center;
+}
+.fechar-modal { position: absolute; top: 15px; right: 25px; color: #fff; font-size: 38px; font-weight: bold; cursor: pointer; z-index: 100001; }
+.modal-conteudo-wrapper { display: flex; flex-direction: column; align-items: center; max-width: 90vw; max-height: 85vh; }
+.conteudo-modal { max-width: 100%; max-height: 75vh; border-radius: 4px; }
+.modal-legenda { color: #fff; margin-top: 15px; font-size: 15px; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 20px; }
+.modal-btn {
+    position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1);
+    color: #fff; border: none; font-size: 30px; padding: 15px 20px; cursor: pointer; border-radius: 50%; z-index: 100000; transition: 0.2s;
+}
+.modal-btn:hover { background: #f97316; }
+.modal-btn.prev { left: 20px; } .modal-btn.next { right: 20px; }
