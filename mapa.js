@@ -16,10 +16,20 @@ const bancoDeDados = {
         titulo: "📍 Comunidade de Mumbuca",
         subtitulo: "Jequitinhonha, Minas Gerais",
         capsulas: [
-            { icone: "🤝", titulo: "Mutirão e Troca", html: "O <b>mutirão</b> é uma prática ancestral de cooperação técnica e social. As famílias se reúnem para realizar o plantio e a colheita coletiva, trocando dias de trabalho direto sem a necessidade de mediação financeira." },
-            { icone: "🛒", titulo: "Feira de Sábado", html: "A feira possibilita a venda direta aos consumidores na cidade, garantindo autonomia econômica e eliminando o atravessador." },
+            { icone: "🤝", titulo: "Mutirão e Troca", html: "O <b>mutirão</b> é uma prática ancestral de cooperação técnica e social. As famílias reúnem-se para realizar a plantação e a colheita coletiva, trocando dias de trabalho direto sem a necessidade de mediação financeira." },
+            { icone: "🛒", titulo: "Feira de Sábado", html: "A feira possibilita a venda direta aos consumidores na cidade, garantindo autonomia económica e eliminando o atravessador." },
             { icone: "🌱", titulo: "Cultivos", html: "<ul><li><b>Mandioca:</b> Produção de farinha e derivados.</li><li><b>Milho Crioulo:</b> Preservação de sementes tradicionais.</li><li><b>Hortaliças:</b> Cultivo orgânico.</li></ul>" },
-            { icone: "🖼️", titulo: "Fotos", tipo: "galeria", idGaleria: "galeria-mg", imagem: "mandioca.jpg" }
+            { 
+                icone: "🖼️", 
+                titulo: "Fotos", 
+                tipo: "galeria", 
+                idGaleria: "galeria-mg", 
+                imagens: [
+                    { src: "image_d8d5fc.jpg", alt: "Mutirão na horta" },
+                    { src: "image_d8d61d.png", alt: "Feira de Sábado" },
+                    { src: "image_d8d63a.jpg", alt: "Cultivo tradicional" }
+                ] 
+            }
         ]
     },
     rj: {
@@ -29,7 +39,20 @@ const bancoDeDados = {
             { icone: "👑", titulo: "História", html: "Comunidade fundada no século XIX por três mulheres ancestrais: <b>Antonica, Marcelina e Luiza</b>. A preservação do território ocorreu por meio da resistência e do matriarcado." },
             { icone: "🍲", titulo: "Gastronomia", html: "O Restaurante do Quilombo serve pratos emblemáticos:<br><br><ul><li><b>Camarão com Taioba</b></li><li><b>Peixe à Moda Quilombola</b></li><li><b>Drink de Juçara</b></li></ul>" },
             { icone: "🎨", titulo: "Artesanato", html: "A Casa de Artesanato reúne trançados em fibra de taboa, cestaria e esculturas em madeira, além de manter vivo o Jongo e a Capoeira." },
-            { icone: "🖼️", titulo: "Fotos", tipo: "galeria", idGaleria: "galeria-rj", imagem: "campinho.jpg" }
+            { 
+                icone: "🖼️", 
+                titulo: "Fotos", 
+                tipo: "galeria", 
+                idGaleria: "galeria-rj", 
+                // Imagens do Quilombo do Campinho adicionadas aqui
+                imagens: [
+                    { src: "campinho.jpg", alt: "Quilombo do Campinho" },
+                    { src: "image_d93872.jpg", alt: "História e Ancestralidade" },
+                    { src: "image_d93893.jpg", alt: "Restaurante do Quilombo" },
+                    { src: "image_d93b3a.jpg", alt: "Gastronomia Afro-Caiçara" },
+                    { src: "image_d93b57.jpg", alt: "Casa de Artesanato" }
+                ] 
+            }
         ]
     }
 };
@@ -62,7 +85,6 @@ function gerarPopupHTML(idComunidade) {
     return html + `</div></div>`;
 }
 
-// Renderiza os marcadores no mapa com atraso na animação (efeito cascata)
 const marcadorMG = L.marker([-16.283333, -40.966667], { icon: gerarIcone('#2563eb', '2.5s') }).addTo(map);
 marcadorMG.bindPopup(gerarPopupHTML('mg'), { maxWidth: 280 });
 
@@ -82,8 +104,13 @@ function abrirPainel(idComunidade, indexCapsula) {
         conteudoHTML += `
             <div class="galeria-container">
                 <button class="btn-galeria prev" onclick="mudarFoto('${cap.idGaleria}', -1)">&#10094;</button>
-                <div class="galeria-slides" id="${cap.idGaleria}">
-                    <img src="${cap.imagem}" alt="${cap.titulo}" onclick="ampliarImagem(this, '${cap.idGaleria}')">
+                <div class="galeria-slides" id="${cap.idGaleria}">`;
+        
+        cap.imagens.forEach(img => {
+            conteudoHTML += `<img src="${img.src}" alt="${img.alt}" onclick="ampliarImagem(this, '${cap.idGaleria}')">`;
+        });
+
+        conteudoHTML += `
                 </div>
                 <button class="btn-galeria next" onclick="mudarFoto('${cap.idGaleria}', 1)">&#10095;</button>
             </div>
