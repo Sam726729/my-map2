@@ -46,7 +46,6 @@ const bancoDeDados = {
                 idGaleria: "galeria-rj", 
                 // Imagens do Quilombo do Campinho adicionadas aqui
                 imagens: [
-                    { src: "campinho.jpg", alt: "Quilombo do Campinho" },
                     { src: "image_d93872.jpg", alt: "História e Ancestralidade" },
                     { src: "image_d93893.jpg", alt: "Restaurante do Quilombo" },
                     { src: "image_d93b3a.jpg", alt: "Gastronomia Afro-Caiçara" },
