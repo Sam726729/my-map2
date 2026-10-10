@@ -171,28 +171,7 @@ function abrirPainel(idComunidade, indexCapsula) {
     const cap = comunidade.capsulas[indexCapsula];
     const divConteudo = document.getElementById('conteudoPainel');
     
-    // Cria o botão redondo de rota caso a comunidade tenha coordenadas
-    let botaoRotaHTML = '';
-    if (comunidade.lat && comunidade.lng) {
-        botaoRotaHTML = `
-            <a href="https://www.google.com/maps/dir/?api=1&destination=${comunidade.lat},${comunidade.lng}" 
-               target="_blank" 
-               class="btn-rota-redondo" 
-               title="Como Chegar (Google Maps)">
-                🗺️
-            </a>
-        `;
-    }
-
-    // O título e o subtítulo ganham o botão redondo exclusivo ao lado
-    let conteudoHTML = `
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-            <h2>${cap.icone} ${cap.titulo}</h2>
-            ${botaoRotaHTML}
-        </div>
-        <hr>
-        <div class="texto-painel">
-    `;
+    let conteudoHTML = `<h2>${cap.icone} ${cap.titulo}</h2><hr><div class="texto-painel">`;
 
     if (cap.tipo === 'galeria') {
         conteudoHTML += `
@@ -223,6 +202,17 @@ function abrirPainel(idComunidade, indexCapsula) {
             <div class="audio-container" style="margin-top: 15px;">
                 <label><b>Ouvir relato:</b></label>
                 <audio controls src="${cap.audio}" style="width:100%; margin-top:5px;"></audio>
+            </div>
+        `;
+    }
+
+    // Botão redondo do Google Maps no final do container de conteúdo
+    if (comunidade.lat && comunidade.lng) {
+        conteudoHTML += `
+            <div style="text-align: center; margin-top: 25px;">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=${comunidade.lat},${comunidade.lng}" target="_blank" class="btn-rota-redondo" title="Como Chegar (Google Maps)">
+                    🗺️
+                </a>
             </div>
         `;
     }
