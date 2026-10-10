@@ -8,13 +8,66 @@ setTimeout(() => {
     map.flyTo([-19.5000, -42.8000], 6, { animate: true, duration: 2.5 });
 }, 1000);
 
+
 // ==========================================
-// 2. DADOS E TEXTOS DAS COMUNIDADES
+// 2. LÓGICA DO MODO ESCURO / CLARO
+// ==========================================
+const btnTema = document.getElementById('btn-tema');
+
+btnTema.addEventListener('click', () => {
+    document.body.classList.toggle('modo-escuro');
+    
+    // Troca o ícone do botão
+    if (document.body.classList.contains('modo-escuro')) {
+        btnTema.textContent = '☀️';
+    } else {
+        btnTema.textContent = '🌙';
+    }
+});
+
+
+// ==========================================
+// 3. LÓGICA DE GEOLOCALIZAÇÃO (ONDE ESTOU)
+// ==========================================
+const btnLocalizacao = document.getElementById('btn-localizacao');
+let marcadorUsuario = null;
+
+btnLocalizacao.addEventListener('click', () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((posicao) => {
+            const lat = posicao.coords.latitude;
+            const lng = posicao.coords.longitude;
+
+            // Desliza suavemente até o usuário (FlyTo)
+            map.flyTo([lat, lng], 16, { duration: 1.5 });
+
+            // Adiciona ou atualiza o pino da posição do usuário
+            if (marcadorUsuario) {
+                marcadorUsuario.setLatLng([lat, lng]);
+            } else {
+                marcadorUsuario = L.marker([lat, lng])
+                    .addTo(map)
+                    .bindPopup("<b>Você está aqui!</b>")
+                    .openPopup();
+            }
+        }, () => {
+            alert("Não foi possível obter sua localização. Verifique as permissões do navegador.");
+        });
+    } else {
+        alert("Navegador não suporta geolocalização.");
+    }
+});
+
+
+// ==========================================
+// 4. DADOS E TEXTOS DAS COMUNIDADES
 // ==========================================
 const bancoDeDados = {
     mg: {
         titulo: "📍 Comunidade de Mumbuca",
         subtitulo: "Jequitinhonha, Minas Gerais",
+        lat: -16.283333, // Coordenada para rota (opcional)
+        lng: -40.966667,
         capsulas: [
             { icone: "🤝", titulo: "Mutirão e Troca", html: "O <b>mutirão</b> é uma prática ancestral de cooperação técnica e social. As famílias reúnem-se para realizar a plantação e a colheita coletiva, trocando dias de trabalho direto sem a necessidade de mediação financeira." },
             { icone: "🛒", titulo: "Feira de Sábado", html: "A feira possibilita a venda direta aos consumidores na cidade, garantindo autonomia económica e eliminando o atravessador." },
@@ -35,6 +88,8 @@ const bancoDeDados = {
     rj: {
         titulo: "📍 Quilombo do Campinho",
         subtitulo: "Paraty, Rio de Janeiro",
+        lat: -23.2961, // Coordenada para rota (opcional)
+        lng: -44.7008,
         capsulas: [
             { icone: "👑", titulo: "História", html: "Comunidade fundada no século XIX por três mulheres ancestrais: <b>Antonica, Marcelina e Luiza</b>. A preservação do território ocorreu por meio da resistência e do matriarcado." },
             { icone: "🍲", titulo: "Gastronomia", html: "O Restaurante do Quilombo serve pratos emblemáticos:<br><br><ul><li><b>Camarão com Taioba</b></li><li><b>Peixe à Moda Quilombola</b></li><li><b>Drink de Juçara</b></li></ul>" },
@@ -44,7 +99,6 @@ const bancoDeDados = {
                 titulo: "Fotos", 
                 tipo: "galeria", 
                 idGaleria: "galeria-rj", 
-                // Imagens do Quilombo do Campinho adicionadas aqui
                 imagens: [
                     { src: "image_d93872.jpg", alt: "História e Ancestralidade" },
                     { src: "image_d93893.jpg", alt: "Restaurante do Quilombo" },
@@ -56,8 +110,9 @@ const bancoDeDados = {
     }
 };
 
+
 // ==========================================
-// 3. CRIAÇÃO DOS PINOS E POPUPS
+// 5. CRIAÇÃO DOS PINOS E POPUPS
 // ==========================================
 function gerarIcone(cor, atraso = '0s') {
     return L.divIcon({
@@ -84,17 +139,27 @@ function gerarPopupHTML(idComunidade) {
     return html + `</div></div>`;
 }
 
+// Criação do marcador de MG
 const marcadorMG = L.marker([-16.283333, -40.966667], { icon: gerarIcone('#2563eb', '2.5s') }).addTo(map);
 marcadorMG.bindPopup(gerarPopupHTML('mg'), { maxWidth: 280 });
+marcadorMG.on('click', function(e) {
+    map.flyTo(e.latlng, 16, { duration: 1.2 }); // Animação suave ao clicar no pino
+});
 
+// Criação do marcador do RJ
 const marcadorRJ = L.marker([-23.2961, -44.7008], { icon: gerarIcone('#f97316', '2.8s') }).addTo(map);
 marcadorRJ.bindPopup(gerarPopupHTML('rj'), { maxWidth: 280 });
+marcadorRJ.on('click', function(e) {
+    map.flyTo(e.latlng, 16, { duration: 1.2 }); // Animação suave ao clicar no pino
+});
+
 
 // ==========================================
-// 4. LÓGICA DO PAINEL LATERAL (DRAWER)
+// 6. LÓGICA DO PAINEL LATERAL (DRAWER)
 // ==========================================
 function abrirPainel(idComunidade, indexCapsula) {
-    const cap = bancoDeDados[idComunidade].capsulas[indexCapsula];
+    const comunidade = bancoDeDados[idComunidade];
+    const cap = comunidade.capsulas[indexCapsula];
     const divConteudo = document.getElementById('conteudoPainel');
     
     let conteudoHTML = `<h2>${cap.icone} ${cap.titulo}</h2><hr><div class="texto-painel">`;
@@ -117,6 +182,25 @@ function abrirPainel(idComunidade, indexCapsula) {
     } else {
         conteudoHTML += cap.html;
     }
+
+    // Opcional: Se a cápsula tiver áudio cadastrado, ele aparece aqui
+    if (cap.audio) {
+        conteudoHTML += `
+            <div class="audio-container" style="margin-top: 15px;">
+                <label><b>Ouvir relato:</b></label>
+                <audio controls src="${cap.audio}" style="width:100%; margin-top:5px;"></audio>
+            </div>
+        `;
+    }
+
+    // Botão "Como Chegar" integrado no painel lateral
+    if (comunidade.lat && comunidade.lng) {
+        conteudoHTML += `
+            <a href="https://www.google.com/maps/dir/?api=1&destination=${comunidade.lat},${comunidade.lng}" target="_blank" class="btn-rota" style="display:block; margin-top:20px; text-align:center; padding:10px; background:#2563eb; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">
+                🗺️ Como Chegar (Google Maps)
+            </a>
+        `;
+    }
     
     conteudoHTML += `</div>`;
     divConteudo.innerHTML = conteudoHTML;
@@ -130,8 +214,9 @@ function fecharPainel() {
     document.getElementById('overlayPainel').classList.remove('aberto');
 }
 
+
 // ==========================================
-// 5. LÓGICA DA GALERIA AMPLIADA (MODAL)
+// 7. LÓGICA DA GALERIA AMPLIADA (MODAL)
 // ==========================================
 let listaFotosModal = [];
 let indiceFotoModal = 0;
