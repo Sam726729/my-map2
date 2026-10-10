@@ -1,63 +1,107 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Mapa Interativo das Comunidades Quilombolas - MG e RJ</title>
+
     
+
     <!-- CSS do Leaflet -->
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
     
+
     <!-- Arquivo CSS Local -->
+
     <link rel="stylesheet" href="estilo.css" />
+
 </head>
+
 <body>
 
+
+
     <!-- Container do Mapa -->
+
     <div id="map"></div>
 
+
+
     <!-- Botões de Ação Flutuantes no Mapa -->
-    <div class="botoes-flutuantes">
-        <button id="btn-tema" title="Alternar Modo Claro/Escuro">🌙</button>
-        <button id="btn-localizacao" title="Minha Localização">🎯</button>
-    </div>
+
+<div class="botoes-flutuantes">
+
+    <button id="btn-tema" title="Alternar Modo Claro/Escuro">🌙</button>
+
+    <button id="btn-localizacao" title="Minha Localização">🎯</button>
+
+</div>
+
     
+
     <!-- Fundo escuro ao abrir o painel -->
+
     <div id="overlayPainel" class="overlay-painel" onclick="fecharPainel()"></div>
 
+
+
     <!-- Painel Lateral Deslizante (Side Drawer) -->
+
     <div id="painelLateral" class="painel-lateral">
+
         <button class="fechar-painel" onclick="fecharPainel()" title="Fechar">&times;</button>
-        
-        <!-- Conteúdo dinâmico das cápsulas -->
+
         <div id="conteudoPainel" class="conteudo-painel">
+
             <!-- O conteúdo das cápsulas será injetado aqui via JavaScript -->
+
         </div>
 
-        <!-- Rodapé Exclusivo do Painel com o Botão "Como Chegar" -->
-        <div id="rodapePainel" class="rodape-painel">
-            <a id="btnRotaPainel" href="#" target="_blank" class="btn-rota">
-                🗺️ Como Chegar (Google Maps)
-            </a>
-        </div>
     </div>
 
-    <!-- Modal/Janela para ampliar as imagens -->
+
+
+    <!-- Modal/Janela para ampliar as imagens (Mantido da versão anterior) -->
+
     <div id="imagemModal" class="modal-imagem" onclick="fecharModal(event)">
+
         <span class="fechar-modal" onclick="fecharModal(event)">&times;</span>
+
         <button class="modal-btn prev" onclick="mudarFotoModal(-1, event)" title="Foto anterior">&#10094;</button>
+
         <div class="modal-conteudo-wrapper">
+
             <img id="imagemExpandida" class="conteudo-modal" alt="Imagem ampliada" onclick="event.stopPropagation()">
+
             <div id="modalLegenda" class="modal-legenda"></div>
+
         </div>
+
         <button class="modal-btn next" onclick="mudarFotoModal(1, event)" title="Próxima foto">&#10095;</button>
+
     </div>
+
+
 
     <!-- JS do Leaflet -->
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     
+
     <!-- Arquivo JS Local -->
+
     <script src="mapa.js"></script>
 
+
+
 </body>
+
 </html>
