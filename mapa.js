@@ -154,13 +154,13 @@ function gerarPopupHTML(idComunidade) {
 const marcadorMG = L.marker([-16.283333, -40.966667], { icon: gerarIcone('#2563eb', '2.5s') }).addTo(map);
 marcadorMG.bindPopup(gerarPopupHTML('mg'), { maxWidth: 280 });
 marcadorMG.on('click', function(e) {
-    map.flyTo(e.latlng, 16, { duration: 1.2 });
+    map.flyTo(e.latlng, 14, { duration: 1.2 });
 });
 
 const marcadorRJ = L.marker([-23.2961, -44.7008], { icon: gerarIcone('#f97316', '2.8s') }).addTo(map);
 marcadorRJ.bindPopup(gerarPopupHTML('rj'), { maxWidth: 280 });
 marcadorRJ.on('click', function(e) {
-    map.flyTo(e.latlng, 16, { duration: 1.2 });
+    map.flyTo(e.latlng, 14, { duration: 1.2 });
 });
 
 
