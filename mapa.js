@@ -69,46 +69,54 @@ const bancoDeDados = {
         lat: -16.283333, // Coordenada para rota (opcional)
         lng: -40.966667,
         capsulas: [
-            { icone: "🤝", titulo: "Mutirão e Troca", html: "O <b>mutirão</b> é uma prática ancestral de cooperação técnica e social. As famílias reúnem-se para realizar a plantação e a colheita coletiva, trocando dias de trabalho direto sem a necessidade de mediação financeira." },
-            { icone: "🛒", titulo: "Feira de Sábado", html: "A feira possibilita a venda direta aos consumidores na cidade, garantindo autonomia económica e eliminando o atravessador." },
-            { icone: "🌱", titulo: "Cultivos", html: "<ul><li><b>Mandioca:</b> Produção de farinha e derivados.</li><li><b>Milho Crioulo:</b> Preservação de sementes tradicionais.</li><li><b>Hortaliças:</b> Cultivo orgânico.</li></ul>" },
-            { 
-                icone: "🖼️", 
-                titulo: "Fotos", 
-                tipo: "galeria", 
-                idGaleria: "galeria-mg", 
-                imagens: [
-                    { src: "image_d8d5fc.jpg", alt: "Mutirão na horta" },
-                    { src: "image_d8d61d.png", alt: "Feira de Sábado" },
-                    { src: "image_d8d63a.jpg", alt: "Cultivo tradicional" }
+        { 
+            icone: "🤝", 
+            titulo: "Mutirão e Troca", 
+            html: "O <b>mutirão</b> é uma prática ancestral de cooperação técnica e social. As famílias reúnem-se para realizar a plantação e a colheita coletiva, trocando dias de trabalho direto sem a necessidade de mediação financeira.",
+            imagem: { src: "image_d8d5fc.jpg", alt: "Mutirão na horta" }, // <--- Imagem correspondente ao Multirão e Troca.
+        },
+        { 
+            icone: "🛒",
+            titulo: "Feira de Sábado",
+            html: "A feira possibilita a venda direta aos consumidores na cidade, garantindo autonomia económica e eliminando o atravessador.",
+            imagem: { src: "image_d8d61d.png", alt: "Feira de Sábado" }, // <--- Imagem correspondente a Feira de Sábado.
+        },
+        {
+            icone: "🌱",
+            titulo: "Cultivos",
+            html: "<ul><li><b>Mandioca:</b> Produção de farinha e derivados.</li><li><b>Milho Crioulo:</b> Preservação de sementes tradicionais.</li><li><b>Hortaliças:</b> Cultivo orgânico.</li></ul>",
+            imagem: { src: "image_d8d63a.jpg", alt: "Cultivo tradicional" } // <--- Imagem correspondente ao Cultivo.
+        };
+            {      
                 ] 
             }
         ]
     },
+
     rj: {
-        titulo: "📍 Quilombo do Campinho",
-        subtitulo: "Paraty, Rio de Janeiro",
-        lat: -23.2961, // Coordenada para rota (opcional)
-        lng: -44.7008,
-        capsulas: [
-            { icone: "👑", titulo: "História", html: "Comunidade fundada no século XIX por três mulheres ancestrais: <b>Antonica, Marcelina e Luiza</b>. A preservação do território ocorreu por meio da resistência e do matriarcado." },
-            { icone: "🍲", titulo: "Gastronomia", html: "O Restaurante do Quilombo serve pratos emblemáticos:<br><br><ul><li><b>Camarão com Taioba</b></li><li><b>Peixe à Moda Quilombola</b></li><li><b>Drink de Juçara</b></li></ul>" },
-            { icone: "🎨", titulo: "Artesanato", html: "A Casa de Artesanato reúne trançados em fibra de taboa, cestaria e esculturas em madeira, além de manter vivo o Jongo e a Capoeira." },
-            { 
-                icone: "🖼️", 
-                titulo: "Fotos", 
-                tipo: "galeria", 
-                idGaleria: "galeria-rj", 
-                imagens: [
-                    { src: "image_d93872.jpg", alt: "História e Ancestralidade" },
-                    { src: "image_d93893.jpg", alt: "Restaurante do Quilombo" },
-                    { src: "image_d93b3a.jpg", alt: "Gastronomia Afro-Caiçara" },
-                    { src: "image_d93b57.jpg", alt: "Casa de Artesanato" }
-                ] 
-            }
-        ]
-    }
-};
+    titulo: "📍 Quilombo do Campinho",
+    subtitulo: "Paraty, Rio de Janeiro",
+    lat: -23.2961, // Coordenada para rota (opcional)
+    lng: -44.7008,
+    capsulas: [
+        { 
+            icone: "👑", 
+            titulo: "História", 
+            html: "Comunidade fundada no século XIX por três mulheres ancestrais: <b>Antonica, Marcelina e Luiza</b>. A preservação do território ocorreu por meio da resistência e do matriarcado.",
+            imagem: { src: "image_d93872.jpg", alt: "Jovens com trajes tradicionais em frente à igreja" } // <--- Imagem correspondente a História.
+        },
+        { 
+            icone: "🍲", 
+            titulo: "Gastronomia", 
+            html: "O Restaurante do Quilombo serve pratos emblemáticos:<br><br><ul><li><b>Camarão com Taioba</b></li><li><b>Peixe à Moda Quilombola</b></li><li><b>Drink de Juçara</b></li></ul>",
+            imagem: { src: "image_d93b3a.jpg", alt: "Prato com feijoada e acompanhamentos" } // <--- Imagem correspondente a Gastronomia.
+        },
+        {
+            icone: "🎨",
+            titulo: "Artesanato",
+            html: "A Casa de Artesanato reúne trançados em fibra de taboa, cestaria e esculturas em madeira, além de manter vivo o Jongo e a Capoeira.",
+            imagem: { src: "image_d93b57.jpg", alt: "Casa de Artesanato" } // <--- Imagem correspondente a Artesanato.
+        };
 
 
 // ==========================================
