@@ -256,3 +256,50 @@ body.modo-escuro .botoes-flutuantes button {
 .btn-rota:hover {
     background: #1d4ed8;
 }
+
+/* ==========================================
+   7. ESTILO DA BOLINHA DE GPS (ESTILO GOOGLE MAPS)
+   ========================================== */
+.bolinha-usuario-container {
+    position: relative;
+    width: 24px;
+    height: 24px;
+}
+
+/* O ponto central azul */
+.ponto-gps {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 16px;
+    height: 16px;
+    background-color: #2563eb;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+/* O efeito de onda/pulso ao redor */
+.pulso-gps {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    width: 32px;
+    height: 32px;
+    background-color: rgba(37, 99, 235, 0.4);
+    border-radius: 50%;
+    animation: ondaPulso 2s infinite ease-out;
+    z-index: 1;
+}
+
+@keyframes ondaPulso {
+    0% {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
