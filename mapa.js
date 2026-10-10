@@ -170,10 +170,29 @@ function abrirPainel(idComunidade, indexCapsula) {
     const comunidade = bancoDeDados[idComunidade];
     const cap = comunidade.capsulas[indexCapsula];
     const divConteudo = document.getElementById('conteudoPainel');
-    const rodapePainel = document.getElementById('rodapePainel');
-    const btnRotaPainel = document.getElementById('btnRotaPainel');
     
-    let conteudoHTML = `<h2>${cap.icone} ${cap.titulo}</h2><hr><div class="texto-painel">`;
+    // Cria o botão redondo de rota caso a comunidade tenha coordenadas
+    let botaoRotaHTML = '';
+    if (comunidade.lat && comunidade.lng) {
+        botaoRotaHTML = `
+            <a href="https://www.google.com/maps/dir/?api=1&destination=${comunidade.lat},${comunidade.lng}" 
+               target="_blank" 
+               class="btn-rota-redondo" 
+               title="Como Chegar (Google Maps)">
+                🗺️
+            </a>
+        `;
+    }
+
+    // O título e o subtítulo ganham o botão redondo exclusivo ao lado
+    let conteudoHTML = `
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <h2>${cap.icone} ${cap.titulo}</h2>
+            ${botaoRotaHTML}
+        </div>
+        <hr>
+        <div class="texto-painel">
+    `;
 
     if (cap.tipo === 'galeria') {
         conteudoHTML += `
@@ -211,14 +230,6 @@ function abrirPainel(idComunidade, indexCapsula) {
     conteudoHTML += `</div>`;
     divConteudo.innerHTML = conteudoHTML;
 
-    // Controla o botão "Como Chegar" exclusivo no rodapé do painel
-    if (comunidade.lat && comunidade.lng) {
-        btnRotaPainel.href = `https://www.google.com/maps/dir/?api=1&destination=${comunidade.lat},${comunidade.lng}`;
-        rodapePainel.style.display = 'block';
-    } else {
-        rodapePainel.style.display = 'none';
-    }
-
     document.getElementById('painelLateral').classList.add('aberto');
     document.getElementById('overlayPainel').classList.add('aberto');
 }
@@ -227,68 +238,3 @@ function fecharPainel() {
     document.getElementById('painelLateral').classList.remove('aberto');
     document.getElementById('overlayPainel').classList.remove('aberto');
 }
-
-
-// ==========================================
-// 7. LÓGICA DA GALERIA AMPLIADA E IMAGENS (MODAL)
-// ==========================================
-let listaFotosModal = [];
-let indiceFotoModal = 0;
-
-function mudarFoto(idGaleria, direcao) {
-    const galeria = document.getElementById(idGaleria);
-    if (galeria) galeria.scrollBy({ left: direcao * galeria.clientWidth, behavior: 'smooth' });
-}
-
-function ampliarImagem(elementoImg, idGaleria) {
-    const galeria = document.getElementById(idGaleria);
-    if (galeria) {
-        const imgs = Array.from(galeria.querySelectorAll('img'));
-        listaFotosModal = imgs.map(img => ({ src: img.src, alt: img.alt || 'Foto' }));
-        indiceFotoModal = imgs.findIndex(img => img.src === elementoImg.src);
-    } else {
-        listaFotosModal = [{ src: elementoImg.src, alt: elementoImg.alt || 'Foto' }];
-        indiceFotoModal = 0;
-    }
-    atualizarModal();
-    document.getElementById('imagemModal').style.display = 'flex';
-}
-
-function ampliarImagemUnica(src, alt) {
-    listaFotosModal = [{ src: src, alt: alt }];
-    indiceFotoModal = 0;
-    atualizarModal();
-    document.getElementById('imagemModal').style.display = 'flex';
-}
-
-function atualizarModal() {
-    const foto = listaFotosModal[indiceFotoModal];
-    document.getElementById('imagemExpandida').src = foto.src;
-    document.getElementById('modalLegenda').textContent = listaFotosModal.length > 1 
-        ? `${foto.alt} (${indiceFotoModal + 1}/${listaFotosModal.length})` : foto.alt;
-    
-    const displayBtns = listaFotosModal.length > 1 ? 'block' : 'none';
-    document.querySelector('.modal-btn.prev').style.display = displayBtns;
-    document.querySelector('.modal-btn.next').style.display = displayBtns;
-}
-
-function mudarFotoModal(direcao, event) {
-    if (event) event.stopPropagation();
-    if (listaFotosModal.length <= 1) return;
-    indiceFotoModal = (indiceFotoModal + direcao + listaFotosModal.length) % listaFotosModal.length;
-    atualizarModal();
-}
-
-function fecharModal(event) {
-    if (!event || event.target.id === 'imagemModal' || event.target.classList.contains('fechar-modal')) {
-        document.getElementById('imagemModal').style.display = 'none';
-    }
-}
-
-document.addEventListener('keydown', e => {
-    if (document.getElementById('imagemModal').style.display === 'flex') {
-        if (e.key === 'ArrowLeft') mudarFotoModal(-1);
-        else if (e.key === 'ArrowRight') mudarFotoModal(1);
-        else if (e.key === 'Escape') fecharModal();
-    }
-});
