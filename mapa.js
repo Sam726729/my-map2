@@ -17,7 +17,6 @@ const btnTema = document.getElementById('btn-tema');
 btnTema.addEventListener('click', () => {
     document.body.classList.toggle('modo-escuro');
     
-    // Troca o ícone do botão
     if (document.body.classList.contains('modo-escuro')) {
         btnTema.textContent = '☀️';
     } else {
@@ -38,10 +37,8 @@ btnLocalizacao.addEventListener('click', () => {
             const lat = posicao.coords.latitude;
             const lng = posicao.coords.longitude;
 
-            // Desliza suavemente até o usuário (FlyTo)
             map.flyTo([lat, lng], 16, { duration: 1.5 });
 
-            // Adiciona ou atualiza o pino da posição do usuário
             if (marcadorUsuario) {
                 marcadorUsuario.setLatLng([lat, lng]);
             } else {
@@ -66,57 +63,56 @@ const bancoDeDados = {
     mg: {
         titulo: "📍 Comunidade de Mumbuca",
         subtitulo: "Jequitinhonha, Minas Gerais",
-        lat: -16.283333, // Coordenada para rota (opcional)
+        lat: -16.283333,
         lng: -40.966667,
         capsulas: [
-        { 
-            icone: "🤝", 
-            titulo: "Mutirão e Troca", 
-            html: "O <b>mutirão</b> é uma prática ancestral de cooperação técnica e social. As famílias reúnem-se para realizar a plantação e a colheita coletiva, trocando dias de trabalho direto sem a necessidade de mediação financeira.",
-            imagem: { src: "image_d8d5fc.jpg", alt: "Mutirão na horta" }, // <--- Imagem correspondente ao Multirão e Troca.
-        },
-        { 
-            icone: "🛒",
-            titulo: "Feira de Sábado",
-            html: "A feira possibilita a venda direta aos consumidores na cidade, garantindo autonomia económica e eliminando o atravessador.",
-            imagem: { src: "image_d8d61d.png", alt: "Feira de Sábado" }, // <--- Imagem correspondente a Feira de Sábado.
-        },
-        {
-            icone: "🌱",
-            titulo: "Cultivos",
-            html: "<ul><li><b>Mandioca:</b> Produção de farinha e derivados.</li><li><b>Milho Crioulo:</b> Preservação de sementes tradicionais.</li><li><b>Hortaliças:</b> Cultivo orgânico.</li></ul>",
-            imagem: { src: "image_d8d63a.jpg", alt: "Cultivo tradicional" } // <--- Imagem correspondente ao Cultivo.
-        };
-            {      
-                ] 
+            { 
+                icone: "🤝", 
+                titulo: "Mutirão e Troca", 
+                html: "O <b>mutirão</b> é uma prática ancestral de cooperação técnica e social. As famílias reúnem-se para realizar a plantação e a colheita coletiva, trocando dias de trabalho direto sem a necessidade de mediação financeira.",
+                imagem: { src: "image_d8d5fc.jpg", alt: "Mutirão na horta" }
+            },
+            { 
+                icone: "🛒",
+                titulo: "Feira de Sábado",
+                html: "A feira possibilita a venda direta aos consumidores na cidade, garantindo autonomia económica e eliminando o atravessador.",
+                imagem: { src: "image_d8d61d.png", alt: "Feira de Sábado" }
+            },
+            {
+                icone: "🌱",
+                titulo: "Cultivos",
+                html: "<ul><li><b>Mandioca:</b> Produção de farinha e derivados.</li><li><b>Milho Crioulo:</b> Preservação de sementes tradicionais.</li><li><b>Hortaliças:</b> Cultivo orgânico.</li></ul>",
+                imagem: { src: "image_d8d63a.jpg", alt: "Cultivo tradicional" }
             }
         ]
     },
-
     rj: {
-    titulo: "📍 Quilombo do Campinho",
-    subtitulo: "Paraty, Rio de Janeiro",
-    lat: -23.2961, // Coordenada para rota (opcional)
-    lng: -44.7008,
-    capsulas: [
-        { 
-            icone: "👑", 
-            titulo: "História", 
-            html: "Comunidade fundada no século XIX por três mulheres ancestrais: <b>Antonica, Marcelina e Luiza</b>. A preservação do território ocorreu por meio da resistência e do matriarcado.",
-            imagem: { src: "image_d93872.jpg", alt: "Jovens com trajes tradicionais em frente à igreja" } // <--- Imagem correspondente a História.
-        },
-        { 
-            icone: "🍲", 
-            titulo: "Gastronomia", 
-            html: "O Restaurante do Quilombo serve pratos emblemáticos:<br><br><ul><li><b>Camarão com Taioba</b></li><li><b>Peixe à Moda Quilombola</b></li><li><b>Drink de Juçara</b></li></ul>",
-            imagem: { src: "image_d93b3a.jpg", alt: "Prato com feijoada e acompanhamentos" } // <--- Imagem correspondente a Gastronomia.
-        },
-        {
-            icone: "🎨",
-            titulo: "Artesanato",
-            html: "A Casa de Artesanato reúne trançados em fibra de taboa, cestaria e esculturas em madeira, além de manter vivo o Jongo e a Capoeira.",
-            imagem: { src: "image_d93b57.jpg", alt: "Casa de Artesanato" } // <--- Imagem correspondente a Artesanato.
-        };
+        titulo: "📍 Quilombo do Campinho",
+        subtitulo: "Paraty, Rio de Janeiro",
+        lat: -23.2961,
+        lng: -44.7008,
+        capsulas: [
+            { 
+                icone: "👑", 
+                titulo: "História", 
+                html: "Comunidade fundada no século XIX por três mulheres ancestrais: <b>Antonica, Marcelina e Luiza</b>. A preservação do território ocorreu por meio da resistência e do matriarcado.",
+                imagem: { src: "image_d93872.jpg", alt: "Jovens com trajes tradicionais em frente à igreja" }
+            },
+            { 
+                icone: "🍲", 
+                titulo: "Gastronomia", 
+                html: "O Restaurante do Quilombo serve pratos emblemáticos:<br><br><ul><li><b>Camarão com Taioba</b></li><li><b>Peixe à Moda Quilombola</b></li><li><b>Drink de Juçara</b></li></ul>",
+                imagem: { src: "image_d93b3a.jpg", alt: "Prato com feijoada e acompanhamentos" }
+            },
+            {
+                icone: "🎨",
+                titulo: "Artesanato",
+                html: "A Casa de Artesanato reúne trançados em fibra de taboa, cestaria e esculturas em madeira, além de manter vivo o Jongo e a Capoeira.",
+                imagem: { src: "image_d93b57.jpg", alt: "Casa de Artesanato" }
+            }
+        ]
+    }
+};
 
 
 // ==========================================
@@ -147,18 +143,16 @@ function gerarPopupHTML(idComunidade) {
     return html + `</div></div>`;
 }
 
-// Criação do marcador de MG
 const marcadorMG = L.marker([-16.283333, -40.966667], { icon: gerarIcone('#2563eb', '2.5s') }).addTo(map);
 marcadorMG.bindPopup(gerarPopupHTML('mg'), { maxWidth: 280 });
 marcadorMG.on('click', function(e) {
-    map.flyTo(e.latlng, 16, { duration: 1.2 }); // Animação suave ao clicar no pino
+    map.flyTo(e.latlng, 16, { duration: 1.2 });
 });
 
-// Criação do marcador do RJ
 const marcadorRJ = L.marker([-23.2961, -44.7008], { icon: gerarIcone('#f97316', '2.8s') }).addTo(map);
 marcadorRJ.bindPopup(gerarPopupHTML('rj'), { maxWidth: 280 });
 marcadorRJ.on('click', function(e) {
-    map.flyTo(e.latlng, 16, { duration: 1.2 }); // Animação suave ao clicar no pino
+    map.flyTo(e.latlng, 16, { duration: 1.2 });
 });
 
 
@@ -173,7 +167,6 @@ function abrirPainel(idComunidade, indexCapsula) {
     let conteudoHTML = `<h2>${cap.icone} ${cap.titulo}</h2><hr><div class="texto-painel">`;
 
     if (cap.tipo === 'galeria') {
-        // Mantém a lógica do carrossel geral de fotos
         conteudoHTML += `
             <div class="galeria-container">
                 <button class="btn-galeria prev" onclick="mudarFoto('${cap.idGaleria}', -1)">&#10094;</button>
@@ -185,10 +178,8 @@ function abrirPainel(idComunidade, indexCapsula) {
 
         conteudoHTML += `</div><button class="btn-galeria next" onclick="mudarFoto('${cap.idGaleria}', 1)">&#10095;</button></div>`;
     } else {
-        // Exibe o texto normal da cápsula
         conteudoHTML += cap.html;
 
-        // Se houver uma imagem específica associada a este texto, exibe-a logo abaixo!
         if (cap.imagem) {
             conteudoHTML += `
                 <div style="margin-top: 15px;">
@@ -199,7 +190,6 @@ function abrirPainel(idComunidade, indexCapsula) {
         }
     }
 
-    // Opcional: Se a cápsula tiver áudio cadastrado, ele aparece aqui
     if (cap.audio) {
         conteudoHTML += `
             <div class="audio-container" style="margin-top: 15px;">
@@ -209,7 +199,6 @@ function abrirPainel(idComunidade, indexCapsula) {
         `;
     }
 
-    // Botão "Como Chegar" integrado no painel lateral
     if (comunidade.lat && comunidade.lng) {
         conteudoHTML += `
             <a href="https://www.google.com/maps/dir/?api=1&destination=${comunidade.lat},${comunidade.lng}" target="_blank" class="btn-rota" style="display:block; margin-top:20px; text-align:center; padding:10px; background:#2563eb; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">
@@ -256,7 +245,6 @@ function ampliarImagem(elementoImg, idGaleria) {
     document.getElementById('imagemModal').style.display = 'flex';
 }
 
-// Função auxiliar para ampliar uma imagem isolada que não está no carrossel
 function ampliarImagemUnica(src, alt) {
     listaFotosModal = [{ src: src, alt: alt }];
     indiceFotoModal = 0;
