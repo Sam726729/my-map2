@@ -37,10 +37,9 @@ btnLocalizacao.addEventListener('click', () => {
             const lat = posicao.coords.latitude;
             const lng = posicao.coords.longitude;
 
-            // Apenas centraliza o mapa na posição do usuário, preservando o zoom atual da tela
+            // Centraliza o mapa na posição do usuário preservando o zoom atual
             map.panTo([lat, lng]);
 
-            // Cria o ícone personalizado da bolinha azul com efeito de pulso
             const iconeBolinhaAzul = L.divIcon({
                 className: 'bolinha-usuario-container',
                 html: '<div class="pulso-gps"></div><div class="ponto-gps"></div>',
@@ -48,7 +47,6 @@ btnLocalizacao.addEventListener('click', () => {
                 iconAnchor: [12, 12]
             });
 
-            // Atualiza ou cria o marcador na posição do usuário
             if (marcadorUsuario) {
                 marcadorUsuario.setLatLng([lat, lng]);
             } else {
@@ -63,6 +61,7 @@ btnLocalizacao.addEventListener('click', () => {
         alert("Navegador não suporta geolocalização.");
     }
 });
+
 
 // ==========================================
 // 4. DADOS E TEXTOS DAS COMUNIDADES
@@ -171,6 +170,8 @@ function abrirPainel(idComunidade, indexCapsula) {
     const comunidade = bancoDeDados[idComunidade];
     const cap = comunidade.capsulas[indexCapsula];
     const divConteudo = document.getElementById('conteudoPainel');
+    const rodapePainel = document.getElementById('rodapePainel');
+    const btnRotaPainel = document.getElementById('btnRotaPainel');
     
     let conteudoHTML = `<h2>${cap.icone} ${cap.titulo}</h2><hr><div class="texto-painel">`;
 
@@ -206,17 +207,17 @@ function abrirPainel(idComunidade, indexCapsula) {
             </div>
         `;
     }
-
-    if (comunidade.lat && comunidade.lng) {
-        conteudoHTML += `
-            <a href="https://www.google.com/maps/dir/?api=1&destination=${comunidade.lat},${comunidade.lng}" target="_blank" class="btn-rota" style="display:block; margin-top:20px; text-align:center; padding:10px; background:#2563eb; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">
-                🗺️ Como Chegar (Google Maps)
-            </a>
-        `;
-    }
     
     conteudoHTML += `</div>`;
     divConteudo.innerHTML = conteudoHTML;
+
+    // Controla o botão "Como Chegar" exclusivo no rodapé do painel
+    if (comunidade.lat && comunidade.lng) {
+        btnRotaPainel.href = `https://www.google.com/maps/dir/?api=1&destination=${comunidade.lat},${comunidade.lng}`;
+        rodapePainel.style.display = 'block';
+    } else {
+        rodapePainel.style.display = 'none';
+    }
 
     document.getElementById('painelLateral').classList.add('aberto');
     document.getElementById('overlayPainel').classList.add('aberto');
