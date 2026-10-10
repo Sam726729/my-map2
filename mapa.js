@@ -26,7 +26,7 @@ btnTema.addEventListener('click', () => {
 
 
 // ==========================================
-// 3. LÓGICA DE GEOLOCALIZAÇÃO (COM BOLINHA ESTILO GOOGLE MAPS)
+// 3. LÓGICA DE GEOLOCALIZAÇÃO (CENTRALIZA SEM MUDAR O ZOOM)
 // ==========================================
 const btnLocalizacao = document.getElementById('btn-localizacao');
 let marcadorUsuario = null;
@@ -37,8 +37,8 @@ btnLocalizacao.addEventListener('click', () => {
             const lat = posicao.coords.latitude;
             const lng = posicao.coords.longitude;
 
-            // Desliza suavemente até o usuário
-            map.flyTo([lat, lng], 16, { duration: 1.5 });
+            // Apenas centraliza o mapa na posição do usuário, preservando o zoom atual da tela
+            map.panTo([lat, lng]);
 
             // Cria o ícone personalizado da bolinha azul com efeito de pulso
             const iconeBolinhaAzul = L.divIcon({
@@ -63,7 +63,6 @@ btnLocalizacao.addEventListener('click', () => {
         alert("Navegador não suporta geolocalização.");
     }
 });
-
 
 // ==========================================
 // 4. DADOS E TEXTOS DAS COMUNIDADES
