@@ -46,7 +46,6 @@ html, body { width: 100%; height: 100%; font-family: Arial, sans-serif; overflow
    ========================================== */
 .pin-wrapper { position: relative; width: 36px; height: 36px; }
 
-/* Ondulação na base do pino */
 .ripple {
     position: absolute; bottom: -8px; left: 50%;
     transform: translateX(-50%);
@@ -62,7 +61,6 @@ html, body { width: 100%; height: 100%; font-family: Arial, sans-serif; overflow
     100% { transform: translateX(-50%) scale(2.5); opacity: 0; }
 }
 
-/* Pino caindo com mola */
 .pin-animado {
     transform-origin: bottom center;
     animation: dropBounce 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -131,12 +129,11 @@ html, body { width: 100%; height: 100%; font-family: Arial, sans-serif; overflow
 }
 .galeria-slides::-webkit-scrollbar { display: none; }
 
-/* Miniaturas do carrossel no painel lateral */
 .galeria-slides img {
     flex: 0 0 100%;          
     scroll-snap-align: start;
     width: 100%;
-    height: 280px;           
+    height: 280px;            
     object-fit: cover;       
     border-radius: 8px;
     cursor: pointer;
@@ -158,11 +155,10 @@ html, body { width: 100%; height: 100%; font-family: Arial, sans-serif; overflow
 .fechar-modal { position: absolute; top: 15px; right: 25px; color: #fff; font-size: 38px; font-weight: bold; cursor: pointer; z-index: 100001; }
 .modal-conteudo-wrapper { display: flex; flex-direction: column; align-items: center; max-width: 90vw; max-height: 85vh; }
 
-/* Imagem expandida em Tela Cheia (Modal) */
 .conteudo-modal { 
-    width: 80vw;             /* Ocupa 80% da largura da tela */
-    height: 70vh;            /* Ocupa 70% da altura da tela */
-    object-fit: contain;     /* Exibe a imagem inteira sem cortar */
+    width: 80vw;             
+    height: 70vh;            
+    object-fit: contain;     
     border-radius: 8px; 
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
@@ -209,18 +205,15 @@ html, body { width: 100%; height: 100%; font-family: Arial, sans-serif; overflow
     background: #f8fafc;
 }
 
-/* --- ESTILOS DO MODO ESCURO --- */
 body.modo-escuro {
     background-color: #0f172a;
     color: #f1f5f9;
 }
 
-/* Inverte as cores do mapa Leaflet sem precisar de outra camada de tiles */
 body.modo-escuro .leaflet-tile-container img {
     filter: invert(100%) hue-rotate(180deg) brightness(90%) contrast(90%);
 }
 
-/* Ajuste dos elementos escuros */
 body.modo-escuro .painel-lateral {
     background: #1e293b;
     color: #f1f5f9;
@@ -236,7 +229,6 @@ body.modo-escuro .botoes-flutuantes button {
     color: #ffffff;
 }
 
-/* Estilo para o Leitor de Áudio e Botão de Rota */
 .audio-container {
     margin: 15px 0;
 }
