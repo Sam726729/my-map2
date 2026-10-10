@@ -322,3 +322,35 @@ body.modo-escuro .rodape-painel {
         opacity: 0;
     }
 }
+
+/* ==========================================
+   8. BOTÃO REDONDO DE ROTA NO PAINEL LATERAL
+   ========================================== */
+.btn-rota-redondo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.btn-rota-redondo:hover {
+    background: #e2e8f0;
+    transform: scale(1.1);
+    border-color: #94a3b8;
+}
+
+body.modo-escuro .btn-rota-redondo {
+    background: #334155;
+    border-color: #475569;
+}
