@@ -173,6 +173,7 @@ function abrirPainel(idComunidade, indexCapsula) {
     let conteudoHTML = `<h2>${cap.icone} ${cap.titulo}</h2><hr><div class="texto-painel">`;
 
     if (cap.tipo === 'galeria') {
+        // Mantém a lógica do carrossel geral de fotos
         conteudoHTML += `
             <div class="galeria-container">
                 <button class="btn-galeria prev" onclick="mudarFoto('${cap.idGaleria}', -1)">&#10094;</button>
@@ -182,13 +183,20 @@ function abrirPainel(idComunidade, indexCapsula) {
             conteudoHTML += `<img src="${img.src}" alt="${img.alt}" onclick="ampliarImagem(this, '${cap.idGaleria}')">`;
         });
 
-        conteudoHTML += `
-                </div>
-                <button class="btn-galeria next" onclick="mudarFoto('${cap.idGaleria}', 1)">&#10095;</button>
-            </div>
-            <p style="font-size:11px; text-align:center; margin-top:8px;">Clique na foto para ampliar.</p>`;
+        conteudoHTML += `</div><button class="btn-galeria next" onclick="mudarFoto('${cap.idGaleria}', 1)">&#10095;</button></div>`;
     } else {
+        // Exibe o texto normal da cápsula
         conteudoHTML += cap.html;
+
+        // Se houver uma imagem específica associada a este texto, exibe-a logo abaixo!
+        if (cap.imagem) {
+            conteudoHTML += `
+                <div style="margin-top: 15px;">
+                    <img src="${cap.imagem.src}" alt="${cap.imagem.alt}" onclick="ampliarImagemUnica('${cap.imagem.src}', '${cap.imagem.alt}')" style="width: 100%; height: 220px; object-fit: cover; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <p style="font-size: 12px; color: #64748b; text-align: center; margin-top: 5px;"><i>${cap.imagem.alt}</i></p>
+                </div>
+            `;
+        }
     }
 
     // Opcional: Se a cápsula tiver áudio cadastrado, ele aparece aqui
@@ -224,7 +232,7 @@ function fecharPainel() {
 
 
 // ==========================================
-// 7. LÓGICA DA GALERIA AMPLIADA (MODAL)
+// 7. LÓGICA DA GALERIA AMPLIADA E IMAGENS (MODAL)
 // ==========================================
 let listaFotosModal = [];
 let indiceFotoModal = 0;
@@ -244,6 +252,14 @@ function ampliarImagem(elementoImg, idGaleria) {
         listaFotosModal = [{ src: elementoImg.src, alt: elementoImg.alt || 'Foto' }];
         indiceFotoModal = 0;
     }
+    atualizarModal();
+    document.getElementById('imagemModal').style.display = 'flex';
+}
+
+// Função auxiliar para ampliar uma imagem isolada que não está no carrossel
+function ampliarImagemUnica(src, alt) {
+    listaFotosModal = [{ src: src, alt: alt }];
+    indiceFotoModal = 0;
     atualizarModal();
     document.getElementById('imagemModal').style.display = 'flex';
 }
