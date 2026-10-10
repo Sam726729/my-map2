@@ -26,7 +26,7 @@ btnTema.addEventListener('click', () => {
 
 
 // ==========================================
-// 3. LÓGICA DE GEOLOCALIZAÇÃO (ONDE ESTOU)
+// 3. LÓGICA DE GEOLOCALIZAÇÃO (COM BOLINHA ESTILO GOOGLE MAPS)
 // ==========================================
 const btnLocalizacao = document.getElementById('btn-localizacao');
 let marcadorUsuario = null;
@@ -37,15 +37,24 @@ btnLocalizacao.addEventListener('click', () => {
             const lat = posicao.coords.latitude;
             const lng = posicao.coords.longitude;
 
+            // Desliza suavemente até o usuário
             map.flyTo([lat, lng], 16, { duration: 1.5 });
 
+            // Cria o ícone personalizado da bolinha azul com efeito de pulso
+            const iconeBolinhaAzul = L.divIcon({
+                className: 'bolinha-usuario-container',
+                html: '<div class="pulso-gps"></div><div class="ponto-gps"></div>',
+                iconSize: [24, 24],
+                iconAnchor: [12, 12]
+            });
+
+            // Atualiza ou cria o marcador na posição do usuário
             if (marcadorUsuario) {
                 marcadorUsuario.setLatLng([lat, lng]);
             } else {
-                marcadorUsuario = L.marker([lat, lng])
+                marcadorUsuario = L.marker([lat, lng], { icon: iconeBolinhaAzul })
                     .addTo(map)
-                    .bindPopup("<b>Você está aqui!</b>")
-                    .openPopup();
+                    .bindPopup("<b>Você está aqui!</b>");
             }
         }, () => {
             alert("Não foi possível obter sua localização. Verifique as permissões do navegador.");
