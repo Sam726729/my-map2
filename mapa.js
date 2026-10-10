@@ -160,7 +160,7 @@ marcadorMG.on('click', function(e) {
 const marcadorRJ = L.marker([-23.2961, -44.7008], { icon: gerarIcone('#f97316', '2.8s') }).addTo(map);
 marcadorRJ.bindPopup(gerarPopupHTML('rj'), { maxWidth: 280 });
 marcadorRJ.on('click', function(e) {
-    map.flyTo(e.latlng, 12, { duration: 1.2 });
+    map.flyTo(e.latlng, 15, { duration: 1.2 });
 });
 
 
