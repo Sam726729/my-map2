@@ -354,3 +354,30 @@ body.modo-escuro .btn-rota-redondo {
     background: #334155;
     border-color: #475569;
 }
+
+.btn-rota-redondo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn-rota-redondo:hover {
+    background: #e2e8f0;
+    transform: scale(1.1);
+    border-color: #94a3b8;
+}
+
+body.modo-escuro .btn-rota-redondo {
+    background: #334155;
+    border-color: #475569;
+}
