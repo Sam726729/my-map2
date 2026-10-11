@@ -118,7 +118,7 @@ html, body { width: 100%; height: 100%; font-family: Arial, sans-serif; overflow
 .conteudo-painel li { margin-bottom: 8px; }
 
 /* ==========================================
-   5. GALERIA NO PAINEL E MODAL
+   5. GALERIA NO PAINEL E MODAL (TELA CHEIA)
    ========================================== */
 
 .galeria-container { position: relative; display: flex; align-items: center; margin-top: 15px; }
@@ -137,11 +137,11 @@ html, body { width: 100%; height: 100%; font-family: Arial, sans-serif; overflow
 .galeria-slides::-webkit-scrollbar { display: none; }
 
 .galeria-slides img {
-    flex: 0 0 220px;            /* Largura controlada para caberem várias imagens lado a lado */
+    flex: 0 0 220px;            
     scroll-snap-align: start;
     width: 220px;
-    height: 160px;              /* Altura fixa e padronizada para todas */
-    object-fit: cover;          /* Corta o excesso proporcionalmente sem distorcer */
+    height: 160px;              
+    object-fit: cover;          
     border-radius: 8px;
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -157,27 +157,72 @@ html, body { width: 100%; height: 100%; font-family: Arial, sans-serif; overflow
 .btn-galeria.prev { left: 5px; } .btn-galeria.next { right: 5px; }
 
 .modal-imagem {
-    display: none; position: fixed; z-index: 99999; left: 0; top: 0; width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.95); justify-content: center; align-items: center;
+    display: none; 
+    position: fixed; 
+    z-index: 99999; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0,0,0,0.95); 
+    justify-content: center; 
+    align-items: center;
 }
-.fechar-modal { position: absolute; top: 15px; right: 25px; color: #fff; font-size: 38px; font-weight: bold; cursor: pointer; z-index: 100001; }
-.modal-conteudo-wrapper { display: flex; flex-direction: column; align-items: center; max-width: 90vw; max-height: 85vh; }
 
+.fechar-modal { 
+    position: absolute; 
+    top: 15px; 
+    right: 25px; 
+    color: #fff; 
+    font-size: 38px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    z-index: 100001; 
+}
+
+.modal-conteudo-wrapper { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;
+}
+
+/* Moldura de tamanho fixo para padronizar todas as fotos no modal */
 .conteudo-modal { 
-    width: 80vw;             
-    height: 70vh;            
+    width: 75vw;             
+    height: 65vh;            
     object-fit: contain;     
     border-radius: 8px; 
+    background-color: rgba(0, 0, 0, 0.2);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.modal-legenda { color: #fff; margin-top: 15px; font-size: 15px; background: rgba(255,255,255,0.1); padding: 8px 16px; border-radius: 20px; }
+.modal-legenda { 
+    color: #fff; 
+    margin-top: 15px; 
+    font-size: 15px; 
+    background: rgba(255,255,255,0.1); 
+    padding: 8px 16px; 
+    border-radius: 20px; 
+}
+
 .modal-btn {
-    position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1);
-    color: #fff; border: none; font-size: 30px; padding: 15px 20px; cursor: pointer; border-radius: 50%; z-index: 100000; transition: 0.2s;
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    background: rgba(255,255,255,0.1);
+    color: #fff; 
+    border: none; 
+    font-size: 30px; 
+    padding: 15px 20px; 
+    cursor: pointer; 
+    border-radius: 50%; 
+    z-index: 100000; 
+    transition: 0.2s;
 }
 .modal-btn:hover { background: #f97316; }
-.modal-btn.prev { left: 20px; } .modal-btn.next { right: 20px; }
+.modal-btn.prev { left: 20px; } 
+.modal-btn.next { right: 20px; }
 
 /* ==========================================
    6. BOTÕES FLUTUANTES E MODO ESCURO
