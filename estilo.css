@@ -321,16 +321,32 @@ body.modo-escuro .btn-rota-mapa {
 }
 
 /* ==========================================
-   8. EFEITO DE MODO ESCURO SUAVE NO MAPA
+   ESTILOS DO MODO ESCURO
    ========================================== */
 
-/* Deixa as cores do mapa escuras e agradáveis aos olhos */
-body.modo-escuro .leaflet-tile-container img {
-    filter: brightness(0.6) invert(1) contrast(1.2) hue-rotate(200deg) saturate(0.3) !important;
+body.modo-escuro {
+    background-color: #0f172a;
+    color: #f1f5f9;
 }
 
-/* Mantém os pinos, fotos e popups com as cores originais perfeitas */
-body.modo-escuro .leaflet-marker-pane,
-body.modo-escuro .leaflet-popup-pane {
-    filter: none !important;
+/* Inverte as cores do mapa do OpenStreetMap */
+body.modo-escuro .leaflet-tile-container img {
+    filter: invert(100%) hue-rotate(180deg) brightness(90%) contrast(90%);
+}
+
+/* Painel lateral no modo escuro */
+body.modo-escuro .painel-lateral {
+    background: #1e293b;
+    color: #f1f5f9;
+}
+
+body.modo-escuro .conteudo-painel h2,
+body.modo-escuro .conteudo-painel .texto-painel {
+    color: #f1f5f9;
+}
+
+/* Botões flutuantes no modo escuro */
+body.modo-escuro .botoes-flutuantes button {
+    background: #334155;
+    color: #ffffff;
 }
