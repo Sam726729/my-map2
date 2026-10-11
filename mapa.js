@@ -158,15 +158,26 @@ function gerarPopupHTML(idComunidade) {
     return html + `</div></div>`;
 }
 
+function atualizarBotaoRotaMapa(idComunidade) {
+    const comunidade = bancoDeDados[idComunidade];
+    const btnRotaFixo = document.getElementById('btnRotaFixo');
+    if (comunidade && comunidade.lat && comunidade.lng) {
+        btnRotaFixo.href = `https://www.google.com/maps/dir/?api=1&destination=${comunidade.lat},${comunidade.lng}`;
+        btnRotaFixo.style.display = 'flex';
+    }
+}
+
 const marcadorMG = L.marker([-16.283333, -40.966667], { icon: gerarIcone('#2563eb', '2.5s') }).addTo(map);
 marcadorMG.bindPopup(gerarPopupHTML('mg'), { maxWidth: 280 });
 marcadorMG.on('click', function(e) {
+    atualizarBotaoRotaMapa('mg');
     map.flyTo(e.latlng, 12, { duration: 1.2 });
 });
 
 const marcadorRJ = L.marker([-23.2961, -44.7008], { icon: gerarIcone('#f97316', '2.8s') }).addTo(map);
 marcadorRJ.bindPopup(gerarPopupHTML('rj'), { maxWidth: 280 });
 marcadorRJ.on('click', function(e) {
+    atualizarBotaoRotaMapa('rj');
     map.flyTo(e.latlng, 15, { duration: 1.2 });
 });
 
@@ -178,6 +189,8 @@ function abrirPainel(idComunidade, indexCapsula) {
     const cap = comunidade.capsulas[indexCapsula];
     const divConteudo = document.getElementById('conteudoPainel');
     
+    atualizarBotaoRotaMapa(idComunidade);
+
     let conteudoHTML = `<h2>${cap.icone} ${cap.titulo}</h2><hr><div class="texto-painel">`;
 
     if (cap.tipo === 'galeria') {
@@ -215,15 +228,6 @@ function abrirPainel(idComunidade, indexCapsula) {
     
     conteudoHTML += `</div>`;
     divConteudo.innerHTML = conteudoHTML;
-
-    // Atualiza o link do botão de rota fixo em formato de bolinha
-    const btnRotaFixo = document.getElementById('btnRotaFixo');
-    if (comunidade.lat && comunidade.lng) {
-        btnRotaFixo.href = `https://www.google.com/maps/dir/?api=1&destination=${comunidade.lat},${comunidade.lng}`;
-        btnRotaFixo.style.display = 'flex';
-    } else {
-        btnRotaFixo.style.display = 'none';
-    }
 
     document.getElementById('painelLateral').classList.add('aberto');
     document.getElementById('overlayPainel').classList.add('aberto');
