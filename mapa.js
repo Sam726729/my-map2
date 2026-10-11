@@ -124,7 +124,6 @@ const bancoDeDados = {
                 ],
                 html: "A Casa de Artesanato reúne trançados em fibra de taboa, cestaria e esculturas em madeira, além de manter vivo o Jongo e a Capoeira."
             }
-            }
         ]
     }
 };
