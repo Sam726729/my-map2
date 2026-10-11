@@ -286,3 +286,12 @@ body.modo-escuro .botoes-flutuantes button {
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     z-index: 2;
 }
+
+/* Define o tamanho fixo e o comportamento para todas as imagens da galeria */
+.galeria-slides img {
+    width: 250px;        /* Largura fixa desejada */
+    height: 180px;       /* Altura fixa desejada */
+    object-fit: cover;   /* Mantém a proporção da foto e corta o excesso para preencher o espaço */
+    border-radius: 8px;  /* (Opcional) Deixa as bordas arredondadas */
+    flex-shrink: 0;      /* Impede que o flexbox encolha as imagens */
+}
