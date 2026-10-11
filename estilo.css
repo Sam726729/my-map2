@@ -319,3 +319,18 @@ body.modo-escuro .btn-rota-mapa {
         opacity: 0;
     }
 }
+
+/* ==========================================
+   EFEITO DE MODO ESCURO NO MAPA
+   ========================================== */
+
+/* Inverte as cores dos blocos do mapa quando o modo escuro está ativo */
+body.modo-escuro .leaflet-tile-pane {
+    filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3);
+}
+
+/* Garante que os marcadores e a bolinha do GPS continuem com as cores originais */
+body.modo-escuro .leaflet-marker-pane,
+body.modo-escuro .leaflet-popup-pane {
+    filter: none !important;
+}
