@@ -269,3 +269,53 @@ body.modo-escuro .btn-rota-mapa {
     background: #334155;
     color: #ffffff;
 }
+
+/* ==========================================
+   ESTILO DA BOLINHA DE GPS DO USUÁRIO
+   ========================================== */
+
+.bolinha-usuario-container {
+    position: relative;
+    width: 24px;
+    height: 24px;
+}
+
+/* Ponto azul central */
+.ponto-gps {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 14px;
+    height: 14px;
+    background-color: #2563eb;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+/* Pulso animado em volta do ponto */
+.pulso-gps {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
+    background-color: rgba(37, 99, 235, 0.4);
+    border-radius: 50%;
+    animation: pulsoGPS 2s infinite ease-out;
+    z-index: 1;
+}
+
+@keyframes pulsoGPS {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2.2);
+        opacity: 0;
+    }
+}
