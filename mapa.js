@@ -212,17 +212,18 @@ function abrirPainel(idComunidade, indexCapsula) {
             </div>
         `;
     }
-
-    if (comunidade.lat && comunidade.lng) {
-        conteudoHTML += `
-            <a href="https://www.google.com/maps/dir/?api=1&destination=${comunidade.lat},${comunidade.lng}" target="_blank" class="btn-rota" style="display:block; margin-top:20px; text-align:center; padding:10px; background:#2563eb; color:#fff; text-decoration:none; border-radius:6px; font-weight:bold;">
-                🗺️ Como Chegar (Google Maps)
-            </a>
-        `;
-    }
     
     conteudoHTML += `</div>`;
     divConteudo.innerHTML = conteudoHTML;
+
+    // Atualiza o link do botão de rota fixo em formato de bolinha
+    const btnRotaFixo = document.getElementById('btnRotaFixo');
+    if (comunidade.lat && comunidade.lng) {
+        btnRotaFixo.href = `https://www.google.com/maps/dir/?api=1&destination=${comunidade.lat},${comunidade.lng}`;
+        btnRotaFixo.style.display = 'flex';
+    } else {
+        btnRotaFixo.style.display = 'none';
+    }
 
     document.getElementById('painelLateral').classList.add('aberto');
     document.getElementById('overlayPainel').classList.add('aberto');
