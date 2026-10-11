@@ -114,8 +114,16 @@ const bancoDeDados = {
             {
                 icone: "🎨",
                 titulo: "Artesanato",
-                html: "A Casa de Artesanato reúne trançados em fibra de taboa, cestaria e esculturas em madeira, além de manter vivo o Jongo e a Capoeira.",
-                imagem: { src: "image_d93b57.jpg", alt: "Casa de Artesanato" }, { src: "image_7e4a1c.jpg", alt: "Outras peças de artesanato"}, { src: "image_b9d2f0.jpg", alt: "Cestas em formato de galinha"}, { src: "image_3c8e65.jpg", alt: "Pratos decorativos pintados à mão"} 
+                tipo: "galeria",
+                idGaleria: "galeria-artesanato-rj",
+                imagens: [
+                    { src: "image_d93b57.jpg", alt: "Casa de Artesanato" },
+                    { src: "image_7e4a1c.jpg", alt: "Outras peças de artesanato" },
+                    { src: "image_b9d2f0.jpg", alt: "Cestas em formato de galinha" },
+                    { src: "image_3c8e65.jpg", alt: "Pratos decorativos pintados à mão" }
+                ],
+                html: "A Casa de Artesanato reúne trançados em fibra de taboa, cestaria e esculturas em madeira, além de manter vivo o Jongo e a Capoeira."
+            }
             }
         ]
     }
