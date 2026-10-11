@@ -20,6 +20,8 @@
     <div class="botoes-flutuantes">
         <button id="btn-tema" title="Alternar Modo Claro/Escuro">🌙</button>
         <button id="btn-localizacao" title="Minha Localização">🚩</button>
+        <!-- Botão de Rota Fixo no Mapa (fica oculto até selecionar uma comunidade) -->
+        <a id="btnRotaFixo" href="#" target="_blank" class="btn-rota-mapa" title="Como Chegar (Google Maps)" style="display: none;">🗺️</a>
     </div>
     
     <!-- Fundo escuro ao abrir o painel -->
@@ -28,15 +30,9 @@
     <!-- Painel Lateral Deslizante (Side Drawer) -->
     <div id="painelLateral" class="painel-lateral">
         <button class="fechar-painel" onclick="fecharPainel()" title="Fechar">&times;</button>
-        
         <div id="conteudoPainel" class="conteudo-painel">
             <!-- O conteúdo das cápsulas será injetado aqui via JavaScript -->
         </div>
-
-        <!-- Botão de Rota Fixo em Formato de Bolinha -->
-        <a id="btnRotaFixo" href="#" target="_blank" class="btn-rota-bolinha" title="Como Chegar (Google Maps)">
-            🗺️
-        </a>
     </div>
 
     <!-- Modal/Janela para ampliar as imagens -->
