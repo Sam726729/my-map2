@@ -322,3 +322,19 @@ document.addEventListener('keydown', e => {
         else if (e.key === 'Escape') fecharModal();
     }
 });
+// ==========================================
+// 8. FUNÇÕES DE NAVEGAÇÃO RÁPIDA (ATALHOS)
+// ==========================================
+function irParaMG() {
+    map.flyTo([-16.283333, -40.966667], 12, { duration: 1.5 });
+    atualizarBotaoRotaMapa('mg');
+}
+
+function irParaRJ() {
+    map.flyTo([-23.2961, -44.7008], 15, { duration: 1.5 });
+    atualizarBotaoRotaMapa('rj');
+}
+
+function resetarMapa() {
+    map.flyTo([-14.2350, -51.9253], 4, { duration: 1.5 });
+}
