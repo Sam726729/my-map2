@@ -336,5 +336,5 @@ function irParaRJ() {
 }
 
 function resetarMapa() {
-    map.flyTo([-14.2350, -51.9253], 5, { duration: 1.5 });
+    map.flyTo([-14.2350, -51.9253], 7, { duration: 1.5 });
 }
