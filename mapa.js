@@ -115,8 +115,6 @@ const bancoDeDados = {
                 icone: "🎨",
                 titulo: "Artesanato",
                 html: "Utilizando de forma sustentável elementos da Mata Atlântica — como fibras de palmeiras, taboa e cipós —, o trançado transforma peças tradicionalmente utilitárias (usadas na colheita e no transporte) em artefatos de alto valor decorativo. Essa prática preserva técnicas ancestrais de manejo da floresta e gera renda coletiva para a comunidade.",
-                tipo: "galeria",
-                idGaleria: "galeria-artesanato-rj",
                 imagens: [
                     { src: "image_d93b57.jpg", alt: "Casa de Artesanato" },
                     { src: "image_7e4a1c.png", alt: "Outras peças de artesanato" },
