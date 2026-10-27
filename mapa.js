@@ -17,15 +17,17 @@ setTimeout(() => {
 // ==========================================
 const btnTema = document.getElementById('btn-tema');
 
-btnTema.addEventListener('click', () => {
-    document.body.classList.toggle('modo-escuro');
-    
-    if (document.body.classList.contains('modo-escuro')) {
-        btnTema.textContent = '☀️';
-    } else {
-        btnTema.textContent = '🌙';
-    }
-});
+if (btnTema) {
+    btnTema.addEventListener('click', () => {
+        document.body.classList.toggle('modo-escuro');
+        
+        if (document.body.classList.contains('modo-escuro')) {
+            btnTema.textContent = '☀️';
+        } else {
+            btnTema.textContent = '🌙';
+        }
+    });
+}
 
 // ==========================================
 // 3. LÓGICA DE GEOLOCALIZAÇÃO
@@ -33,35 +35,37 @@ btnTema.addEventListener('click', () => {
 const btnLocalizacao = document.getElementById('btn-localizacao');
 let marcadorUsuario = null;
 
-btnLocalizacao.addEventListener('click', () => {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((posicao) => {
-            const lat = posicao.coords.latitude;
-            const lng = posicao.coords.longitude;
+if (btnLocalizacao) {
+    btnLocalizacao.addEventListener('click', () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((posicao) => {
+                const lat = posicao.coords.latitude;
+                const lng = posicao.coords.longitude;
 
-            map.panTo([lat, lng]);
+                map.panTo([lat, lng]);
 
-            const iconeBolinhaAzul = L.divIcon({
-                className: 'bolinha-usuario-container',
-                html: '<div class="pulso-gps"></div><div class="ponto-gps"></div>',
-                iconSize: [24, 24],
-                iconAnchor: [12, 12]
+                const iconeBolinhaAzul = L.divIcon({
+                    className: 'bolinha-usuario-container',
+                    html: '<div class="pulso-gps"></div><div class="ponto-gps"></div>',
+                    iconSize: [24, 24],
+                    iconAnchor: [12, 12]
+                });
+
+                if (marcadorUsuario) {
+                    marcadorUsuario.setLatLng([lat, lng]);
+                } else {
+                    marcadorUsuario = L.marker([lat, lng], { icon: iconeBolinhaAzul })
+                        .addTo(map)
+                        .bindPopup("<b>Você está aqui!</b>");
+                }
+            }, () => {
+                alert("Não foi possível obter sua localização. Verifique as permissões do navegador.");
             });
-
-            if (marcadorUsuario) {
-                marcadorUsuario.setLatLng([lat, lng]);
-            } else {
-                marcadorUsuario = L.marker([lat, lng], { icon: iconeBolinhaAzul })
-                    .addTo(map)
-                    .bindPopup("<b>Você está aqui!</b>");
-            }
-        }, () => {
-            alert("Não foi possível obter sua localização. Verifique as permissões do navegador.");
-        });
-    } else {
-        alert("Navegador não suporta geolocalização.");
-    }
-});
+        } else {
+            alert("Navegador não suporta geolocalização.");
+        }
+    });
+}
 
 // ==========================================
 // 4. DADOS E TEXTOS DAS COMUNIDADES
@@ -112,14 +116,17 @@ const bancoDeDados = {
                 imagem: { src: "image_d93b3a.jpg", alt: "Prato com acompanhamentos" }
             },
             {
+                tipo: "galeria",
+                idGaleria: "galeria-artesanato",
                 icone: "🎨",
                 titulo: "Artesanato",
                 html: "Utilizando de forma sustentável elementos da Mata Atlântica — como fibras de palmeiras, taboa e cipós —, o trançado transforma peças tradicionalmente utilitárias (usadas na colheita e no transporte) em artefatos de alto valor decorativo. Essa prática preserva técnicas ancestrais de manejo da floresta e gera renda coletiva para a comunidade.",
-                imagens:
+                imagens: [
                     { src: "image_d93b57.jpg", alt: "Casa de Artesanato" },
                     { src: "image_7e4a1c.png", alt: "Outras peças de artesanato" },
                     { src: "image_b9d2f0.png", alt: "Cestas em formato de galinha" },
                     { src: "image_3c8e65.jpeg", alt: "Pratos decorativos pintados à mão" }
+                ]
             }
         ]
     },
@@ -158,7 +165,7 @@ function gerarPopupHTML(idComunidade) {
 function atualizarBotaoRotaMapa(idComunidade) {
     const comunidade = bancoDeDados[idComunidade];
     const btnRotaFixo = document.getElementById('btnRotaFixo');
-    if (comunidade && comunidade.lat && comunidade.lng) {
+    if (comunidade && comunidade.lat && comunidade.lng && btnRotaFixo) {
         btnRotaFixo.href = `https://www.google.com/maps/dir/?api=1&destination=${comunidade.lat},${comunidade.lng}`;
         btnRotaFixo.style.display = 'flex';
     }
@@ -190,9 +197,13 @@ function abrirPainel(idComunidade, indexCapsula) {
 
     let conteudoHTML = `<h2>${cap.icone} ${cap.titulo}</h2><hr><div class="texto-painel">`;
 
+    if (cap.html) {
+        conteudoHTML += cap.html;
+    }
+
     if (cap.tipo === 'galeria') {
         conteudoHTML += `
-            <div class="galeria-container">
+            <div class="galeria-container" style="margin-top: 15px;">
                 <button class="btn-galeria prev" onclick="mudarFoto('${cap.idGaleria}', -1)">&#10094;</button>
                 <div class="galeria-slides" id="${cap.idGaleria}">`;
         
@@ -202,8 +213,6 @@ function abrirPainel(idComunidade, indexCapsula) {
 
         conteudoHTML += `</div><button class="btn-galeria next" onclick="mudarFoto('${cap.idGaleria}', 1)">&#10095;</button></div>`;
     } else {
-        conteudoHTML += cap.html;
-
         if (cap.imagem) {
             conteudoHTML += `
                 <div style="margin-top: 15px;">
@@ -224,15 +233,19 @@ function abrirPainel(idComunidade, indexCapsula) {
     }
     
     conteudoHTML += `</div>`;
-    divConteudo.innerHTML = conteudoHTML;
+    if (divConteudo) divConteudo.innerHTML = conteudoHTML;
 
-    document.getElementById('painelLateral').classList.add('aberto');
-    document.getElementById('overlayPainel').classList.add('aberto');
+    const painel = document.getElementById('painelLateral');
+    const overlay = document.getElementById('overlayPainel');
+    if (painel) painel.classList.add('aberto');
+    if (overlay) overlay.classList.add('aberto');
 }
 
 function fecharPainel() {
-    document.getElementById('painelLateral').classList.remove('aberto');
-    document.getElementById('overlayPainel').classList.remove('aberto');
+    const painel = document.getElementById('painelLateral');
+    const overlay = document.getElementById('overlayPainel');
+    if (painel) painel.classList.remove('aberto');
+    if (overlay) overlay.classList.remove('aberto');
 }
 
 // ==========================================
@@ -257,21 +270,28 @@ function ampliarImagem(elementoImg, idGaleria) {
         indiceFotoModal = 0;
     }
     atualizarModal();
-    document.getElementById('imagemModal').style.display = 'flex';
+    const modalImg = document.getElementById('imagemModal');
+    if (modalImg) modalImg.style.display = 'flex';
 }
 
 function ampliarImagemUnica(src, alt) {
     listaFotosModal = [{ src: src, alt: alt }];
     indiceFotoModal = 0;
     atualizarModal();
-    document.getElementById('imagemModal').style.display = 'flex';
+    const modalImg = document.getElementById('imagemModal');
+    if (modalImg) modalImg.style.display = 'flex';
 }
 
 function atualizarModal() {
     const foto = listaFotosModal[indiceFotoModal];
-    document.getElementById('imagemExpandida').src = foto.src;
-    document.getElementById('modalLegenda').textContent = listaFotosModal.length > 1 
-        ? `${foto.alt} (${indiceFotoModal + 1}/${listaFotosModal.length})` : foto.alt;
+    const imgExpandida = document.getElementById('imagemExpandida');
+    const modalLegenda = document.getElementById('modalLegenda');
+    
+    if (imgExpandida) imgExpandida.src = foto.src;
+    if (modalLegenda) {
+        modalLegenda.textContent = listaFotosModal.length > 1  
+            ? `${foto.alt} (${indiceFotoModal + 1}/${listaFotosModal.length})` : foto.alt;
+    }
     
     const displayBtns = listaFotosModal.length > 1 ? 'block' : 'none';
     const btnPrev = document.querySelector('.modal-btn.prev');
@@ -288,8 +308,9 @@ function mudarFotoModal(direcao, event) {
 }
 
 function fecharModal(event) {
+    const modalImg = document.getElementById('imagemModal');
     if (!event || event.target.id === 'imagemModal' || event.target.classList.contains('fechar-modal')) {
-        document.getElementById('imagemModal').style.display = 'none';
+        if (modalImg) modalImg.style.display = 'none';
     }
 }
 
