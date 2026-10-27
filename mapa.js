@@ -331,7 +331,7 @@ function irParaMG() {
 }
 
 function irParaRJ() {
-    map.flyTo([-23.2961, -44.7008], 15, { duration: 1.5 });
+    map.flyTo([-19.8, -42.5], 15, { duration: 1.5 });
     atualizarBotaoRotaMapa('rj');
 }
 
