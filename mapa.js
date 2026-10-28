@@ -336,5 +336,8 @@ function irParaRJ() {
 }
 
 function resetarMapa() {
+    // Força o Leaflet a recalcular o tamanho do container antes de mover
+    map.invalidateSize();
+    
     map.flyTo([-14.2350, -51.9253], 6, { duration: 1.5 });
 }
