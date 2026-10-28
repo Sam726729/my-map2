@@ -339,5 +339,5 @@ function resetarMapa() {
     // Força o Leaflet a recalcular o tamanho do container antes de mover
     map.invalidateSize();
     
-    map.flyTo([-14.2350, -51.9253], 4, { animate: true, duration: 2.5 });
+    map.flyTo([-14.2350, -51.9253], 6, { animate: true, duration: 2.5 });
 }
