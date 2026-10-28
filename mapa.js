@@ -92,7 +92,7 @@ const bancoDeDados = {
             {
                 icone: "🌱",
                 titulo: "Cultivos",
-                html: "<ul><li><b>Mandioca:</b> Produção de farinha e derivados.</li><li><b>Milho Crioulo:</b> Preservação de sementes tradicionais.</li><li><b>Hortaliças:</b> Cultivo orgânico.</li></ul>",
+                html: "<ul><li><b>Mandioca:</b> Produção de farinha e derivados.</li><li><b>Milho Crioulo:</b> Preservação de sementes tradicionais.</li><li><b>Hortaliças e feijões nativos:</b> Cultivo orgânico.</li></ul>",
                 imagem: { src: "image_d8d63a.jpg", alt: "Cultivo tradicional" }
             }
         ]
